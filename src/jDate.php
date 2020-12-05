@@ -1,4 +1,6 @@
-<?php namespace MmKargar\Jalali;
+<?php
+
+namespace MmKargar\Jalali;
 
 /**
  * A LaravelPHP helper class for working w/ jalali dates.
@@ -228,5 +230,42 @@ class jDate
         $date->setDate($gd[0], $gd[1], $gd[2]);
         $date->setTime($pd['hour'], $pd['minute'], $pd['second']);
         return $date;
+    }
+
+    public function tr_num($str, $mod = 'en', $mf = '٫')
+    {
+        $num_a = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.');
+        $key_a = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', $mf);
+        return ($mod == 'fa') ? str_replace($num_a, $key_a, $str) : str_replace($key_a, $num_a, $str);
+    }
+
+    /* Please Enter the jalali date in this template = 1399/02/22 , it will return date('Y-m-d' , $date) */
+    public function jalaliToGregorian($template, $spliter = '/', $mod = '')
+    {
+        $ex = explode($spliter, $template);
+        $jy = $ex[0];
+        $jm = $ex[1];
+        $jd = $ex[2];
+        list($jy, $jm, $jd) = explode('_', $this->tr_num($jy . '_' . $jm . '_' . $jd));/* <= Extra :اين سطر ، جزء تابع اصلي نيست */
+        $jy += 1595;
+        $days = -355668 + (365 * $jy) + (((int) ($jy / 33)) * 8) + ((int) ((($jy % 33) + 3) / 4)) + $jd + (($jm < 7) ? ($jm - 1) * 31 : (($jm - 7) * 30) + 186);
+        $gy = 400 * ((int) ($days / 146097));
+        $days %= 146097;
+        if ($days > 36524) {
+            $gy += 100 * ((int) (--$days / 36524));
+            $days %= 36524;
+            if ($days >= 365) $days++;
+        }
+        $gy += 4 * ((int) ($days / 1461));
+        $days %= 1461;
+        if ($days > 365) {
+            $gy += (int) (($days - 1) / 365);
+            $days = ($days - 1) % 365;
+        }
+        $gd = $days + 1;
+        $sal_a = array(0, 31, (($gy % 4 == 0 and $gy % 100 != 0) or ($gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        for ($gm = 0; $gm < 13 and $gd > $sal_a[$gm]; $gm++) $gd -= $sal_a[$gm];
+        $gdate = ($mod == '') ? array($gy, $gm, $gd) : $gy . $mod . $gm . $mod . $gd;
+        return date('Y-m-d', strtotime($gdate[0] . '-' . $gdate[1] . '-' . $gdate[2]));
     }
 }
