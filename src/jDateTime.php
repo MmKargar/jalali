@@ -1,4 +1,4 @@
-<?php namespace Morilog\Jalali;
+<?php namespace MmKargar\Jalali;
 
 /**
  * Jalali DateTime Class, supports years higher than 2038

@@ -1,4 +1,4 @@
-<?php namespace Morilog\Jalali;
+<?php namespace MmKargar\Jalali;
 
 use Illuminate\Support\ServiceProvider;
 

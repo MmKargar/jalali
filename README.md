@@ -1,17 +1,15 @@
-morilog/jalali
+mmkargar/jalali
 ======
 - This package compatible with Laravel 5
-
-- This package was forked from [Miladr/Jalali](http://github.com/miladr/jalai) in previous version and fixed bugs and customized by [Morilog](http://morilog.ir)
 
 <a name="installation"></a>
 ## Installation
 
 Run the Composer update comand
 
-    $ composer require morilog/jalali
+    $ composer require mmkargar/jalali
 
-In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end of the `$providers` array
+In your `config/app.php` add `'MmKargar\Jalali\JalaliServiceProvider'` to the end of the `$providers` array
 
 ```php
     'providers' => [
@@ -19,7 +17,7 @@ In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         ...
-        'Morilog\Jalali\JalaliServiceProvider',
+        'MmKargar\Jalali\JalaliServiceProvider',
 
     ],
     .
@@ -29,8 +27,8 @@ In your `config/app.php` add `'Morilog\Jalali\JalaliServiceProvider'` to the end
     .
     'alias' => [
         ...
-        'jDate' => 'Morilog\Jalali\Facades\jDate',
-        'jDateTime' => 'Morilog\Jalali\Facades\jDateTime',
+        'jDate' => 'MmKargar\Jalali\Facades\jDate',
+        'jDateTime' => 'MmKargar\Jalali\Facades\jDateTime',
     ]
 ```
 
