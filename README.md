@@ -62,6 +62,9 @@ $date = jDate::forge('last sunday')->format('time'); // 00:00:00
 // amend the timestamp value, relative to existing value
 $date = jDate::forge('2012-10-12')->reforge('+ 3 days')->format('date'); // 1391-07-24
 
+//convert jalali to gregorian
+$date = JDate::jalaliToGregorian("1399/09/15"); // output : 2020-12-05
+
 // get relative 'ago' format
 $date = jDate::forge('now - 10 minutes')->ago() // ۱۰ دقیقه پیش
 
